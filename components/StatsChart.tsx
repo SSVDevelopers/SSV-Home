@@ -35,7 +35,7 @@ const StatsChart: React.FC = () => {
             </div>
           </div>
 
-          <div className="lg:w-2/3 w-full h-[400px] bg-white rounded-xl shadow-lg border border-slate-100 p-6">
+          <div className="lg:w-2/3 w-full min-h-[400px] bg-white rounded-xl shadow-lg border border-slate-100 p-6">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-semibold text-slate-700">Project Portfolio Growth</h3>
               <div className="flex items-center gap-4 text-xs font-bold text-slate-400">
@@ -45,7 +45,7 @@ const StatsChart: React.FC = () => {
                 </div>
               </div>
             </div>
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width="100%" height={350}>
               <AreaChart
                 data={data}
                 margin={{
