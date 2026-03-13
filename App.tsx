@@ -7,7 +7,6 @@ import StatsChart from "./components/StatsChart";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
-import AIChatWidget from "./components/AIChatWidget";
 import { ArrowUp } from "lucide-react";
 
 function App() {
@@ -68,7 +67,7 @@ function App() {
         </div>
       </main>
       <Footer />
-      <AIChatWidget />
+      
 
       {/* Professional Back to Top */}
       <button
