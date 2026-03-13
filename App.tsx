@@ -8,7 +8,7 @@ import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import { ArrowUp } from "lucide-react";
-
+import { FaWhatsapp } from "react-icons/fa";
 function App() {
   const [showBackToTop, setShowBackToTop] = useState(false);
 
@@ -67,7 +67,29 @@ function App() {
         </div>
       </main>
       <Footer />
-      
+
+      <a
+        href="https://wa.me/919150134954"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          position: "fixed",
+          bottom: "20px",
+          right: "20px",
+          backgroundColor: "#25D366",
+          color: "white",
+          borderRadius: "50%",
+          width: "60px",
+          height: "60px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          boxShadow: "0 4px 10px rgba(0,0,0,0.3)",
+          zIndex: 1000,
+        }}
+      >
+        <FaWhatsapp size={30} />
+      </a>
 
       {/* Professional Back to Top */}
       <button
