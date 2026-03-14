@@ -103,13 +103,14 @@ export default function Projects() {
 
     setTimeout(() => {
       setCurrentIndex(i);
-    }, 400);
+    }, 350);
   };
 
   return (
     <>
-      <section className="py-20 bg-slate-950">
-        <div className="max-w-7xl mx-auto px-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {/* GRID */}
+      <section className="py-14 bg-slate-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((p, i) => (
             <div
               key={p.id}
@@ -118,7 +119,7 @@ export default function Projects() {
             >
               <img
                 src={p.imageUrl}
-                className="w-full h-64 object-cover hover:scale-110 transition duration-500"
+                className="w-full h-60 sm:h-64 object-cover hover:scale-110 transition duration-500"
                 alt={p.title}
               />
             </div>
@@ -126,41 +127,48 @@ export default function Projects() {
         </div>
       </section>
 
+      {/* IMAGE VIEWER */}
       {currentIndex !== null && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 px-2"
           {...swipeHandlers}
         >
+          {/* CLOSE */}
           <button
             onClick={() => setCurrentIndex(null)}
-            className="absolute top-6 right-6 bg-black/60 p-3 rounded-full text-white z-50"
+            className="absolute top-4 right-4 sm:top-6 sm:right-6 bg-black/70 p-3 rounded-full text-white z-50"
           >
             <X size={26} />
           </button>
 
-          <div className="absolute top-6 left-6 text-white text-sm">
+          {/* COUNTER */}
+          <div className="absolute top-4 left-4 sm:top-6 sm:left-6 text-white text-xs sm:text-sm">
             {currentIndex + 1} / {projects.length}
           </div>
 
+          {/* PREVIOUS */}
           <button
             onClick={goPrev}
-            className="absolute left-8 z-50 w-16 h-16 flex items-center justify-center rounded-full bg-black/60 hover:bg-amber-500 text-white"
+            className="hidden sm:flex absolute left-6 z-50 w-14 h-14 items-center justify-center rounded-full bg-black/60 hover:bg-amber-500 text-white"
           >
-            <ChevronLeft size={36} />
+            <ChevronLeft size={32} />
           </button>
 
+          {/* NEXT */}
           <button
             onClick={goNext}
-            className="absolute right-8 z-50 w-16 h-16 flex items-center justify-center rounded-full bg-black/60 hover:bg-amber-500 text-white"
+            className="hidden sm:flex absolute right-6 z-50 w-14 h-14 items-center justify-center rounded-full bg-black/60 hover:bg-amber-500 text-white"
           >
-            <ChevronRight size={36} />
+            <ChevronRight size={32} />
           </button>
 
+          {/* IMAGE */}
           <TransformWrapper
             minScale={1}
             maxScale={4}
             centerOnInit
             centerZoomedOut
+            wheel={{ step: 0.2 }}
             onZoom={(ref) => {
               if (ref.state.scale > 1) setZoomed(true);
               else setZoomed(false);
@@ -169,21 +177,22 @@ export default function Projects() {
             <TransformComponent>
               <img
                 src={projects[currentIndex].imageUrl}
-                className="max-h-[85vh] max-w-[90vw] object-contain"
+                className="max-h-[80vh] sm:max-h-[85vh] max-w-[95vw] sm:max-w-[90vw] object-contain"
                 alt=""
               />
             </TransformComponent>
           </TransformWrapper>
 
+          {/* DESCRIPTION */}
           {!zoomed && (
-            <div className="absolute bottom-20 bg-black/40 backdrop-blur-md px-8 py-4 rounded-xl text-white text-center">
-              <h3 className="text-lg font-bold">
+            <div className="absolute bottom-6 sm:bottom-20 bg-black/50 backdrop-blur-md px-5 sm:px-8 py-3 sm:py-4 rounded-xl text-white text-center max-w-[90%]">
+              <h3 className="text-base sm:text-lg font-bold">
                 {projects[currentIndex].title}
               </h3>
-              <p className="text-sm text-gray-300">
+              <p className="text-xs sm:text-sm text-gray-300">
                 {projects[currentIndex].location}
               </p>
-              <p className="text-xs text-gray-400">
+              <p className="text-[11px] sm:text-xs text-gray-400">
                 Completed{" "}
                 {new Date(projects[currentIndex].completionDate).getFullYear()}
               </p>
