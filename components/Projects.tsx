@@ -10,13 +10,13 @@ const projects: Project[] = [
     location: "Srinivasa Colony, Madurai",
     imageUrl:
       "https://live.staticflickr.com/65535/55046095245_cc2e8f351a_c.jpg",
-    completionDate: "2026-2-15",
+    completionDate: "2026-02-15",
   },
   {
     id: "2",
     title: "Independent Plot",
     category: "Residential",
-    location: "Srinivas colony, Madurai",
+    location: "Srinivas Colony, Madurai",
     imageUrl:
       "https://live.staticflickr.com/65535/55044873892_7216608a33_c.jpg",
     completionDate: "2024-02-10",
@@ -81,13 +81,6 @@ const Projects: React.FC = () => {
     };
   }, []);
 
-  const scrollToContact = () => {
-    const element = document.getElementById("contact");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   const categories = [
     "All",
     ...Array.from(new Set(projects.map((p) => p.category))),
@@ -127,42 +120,36 @@ const Projects: React.FC = () => {
   return (
     <section
       id="projects"
-      className="py-14 sm:py-16 lg:py-20 bg-slate-50 scroll-mt-20"
+      className="py-16 lg:py-20 bg-slate-950 text-white scroll-mt-20"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
-          <div className="max-w-xl text-center md:text-left">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-3">
-              Featured Projects
-            </h2>
+        {/* HEADER */}
+        <div className="text-center mb-12">
+          <h2 className="text-amber-500 text-xs uppercase tracking-[0.3em] font-bold mb-3">
+            Our Portfolio
+          </h2>
 
-            <p className="text-slate-600 text-sm sm:text-base">
-              Explore our portfolio of landmarks. Each project represents our
-              dedication to structural integrity and aesthetic beauty.
-            </p>
-          </div>
+          <h3 className="text-3xl sm:text-4xl font-black">Landmark Projects</h3>
 
-          <button
-            onClick={scrollToContact}
-            className="px-5 py-3 rounded-lg border-2 border-amber-500 text-amber-600 font-bold text-xs sm:text-sm uppercase tracking-widest hover:bg-amber-500 hover:text-white transition-all flex items-center gap-2 justify-center md:justify-start"
-          >
-            Start a Project →
-          </button>
+          <p className="text-slate-400 mt-4 max-w-2xl mx-auto">
+            Explore our portfolio of high-quality residential and commercial
+            construction projects delivered with precision engineering.
+          </p>
         </div>
 
-        {/* Controls */}
-        <div className="flex flex-col lg:flex-row justify-between items-center gap-5 mb-8">
-          {/* Category Buttons */}
-          <div className="flex overflow-x-auto gap-2 w-full lg:w-auto pb-2">
+        {/* CONTROLS */}
+        <div className="flex flex-col lg:flex-row justify-between items-center gap-6 mb-10">
+          {/* CATEGORY */}
+          <div className="flex flex-wrap justify-center gap-2">
             {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                className={`px-4 py-2 rounded-full text-xs sm:text-sm whitespace-nowrap transition ${
+                className={`px-5 py-2 rounded-full text-xs font-bold tracking-wider transition
+                ${
                   activeCategory === category
-                    ? "bg-amber-500 text-white"
-                    : "bg-white border border-slate-200 text-slate-600"
+                    ? "bg-amber-500 text-white shadow-lg"
+                    : "bg-white/10 backdrop-blur border border-white/10 hover:bg-white/20"
                 }`}
               >
                 {category}
@@ -170,9 +157,9 @@ const Projects: React.FC = () => {
             ))}
           </div>
 
-          {/* Sort */}
-          <div className="flex items-center gap-2 w-full lg:w-auto">
-            <span className="text-slate-500 text-sm flex items-center gap-1">
+          {/* SORT */}
+          <div className="flex items-center gap-2">
+            <span className="flex items-center gap-1 text-slate-400 text-sm">
               <SlidersHorizontal className="w-4 h-4" />
               Sort
             </span>
@@ -180,7 +167,7 @@ const Projects: React.FC = () => {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="px-3 py-2 rounded-md border border-slate-200 text-sm w-full lg:w-auto"
+              className="bg-slate-900 border border-slate-700 rounded-md px-3 py-2 text-sm"
             >
               <option value="newest">Newest</option>
               <option value="oldest">Oldest</option>
@@ -190,35 +177,38 @@ const Projects: React.FC = () => {
           </div>
         </div>
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* PROJECT GRID */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-7">
           {filteredAndSortedProjects.map((project) => (
             <div
               key={project.id}
-              className="group rounded-xl overflow-hidden shadow-md bg-white"
+              className="group relative rounded-xl overflow-hidden bg-slate-900 border border-white/10 hover:border-amber-500/40 transition"
             >
+              {/* IMAGE */}
               <img
                 src={project.imageUrl}
                 alt={project.title}
-                className="w-full h-56 sm:h-60 lg:h-64 object-cover group-hover:scale-105 transition"
+                className="w-full h-64 object-cover transition duration-700 group-hover:scale-110"
               />
 
-              <div className="p-4">
-                <div className="flex justify-between text-xs mb-1">
-                  <span className="text-amber-500 font-bold uppercase">
-                    {project.category}
-                  </span>
+              {/* OVERLAY */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-80"></div>
 
-                  <span className="text-slate-400">
-                    {new Date(project.completionDate).getFullYear()}
-                  </span>
-                </div>
+              {/* TEXT */}
+              <div className="absolute bottom-0 p-6 transform translate-y-4 group-hover:translate-y-0 transition duration-500">
+                <span className="text-xs uppercase tracking-widest text-amber-400 font-bold">
+                  {project.category}
+                </span>
 
-                <h3 className="text-lg font-bold text-slate-900">
-                  {project.title}
-                </h3>
+                <h3 className="text-xl font-bold mt-2">{project.title}</h3>
 
-                <p className="text-sm text-slate-500">{project.location}</p>
+                <p className="text-sm text-slate-300 mt-1">
+                  {project.location}
+                </p>
+
+                <p className="text-xs text-slate-400 mt-2">
+                  Completed {new Date(project.completionDate).getFullYear()}
+                </p>
               </div>
             </div>
           ))}
