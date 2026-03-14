@@ -14,7 +14,7 @@ const projects: Project[] = [
   },
   {
     id: "2",
-    title: "Independent Plot ",
+    title: "Independent Plot",
     category: "Residential",
     location: "Srinivas colony, Madurai",
     imageUrl:
@@ -32,7 +32,7 @@ const projects: Project[] = [
   },
   {
     id: "4",
-    title: "Luxury plot",
+    title: "Luxury Plot",
     category: "Residential",
     location: "North Street",
     imageUrl:
@@ -41,7 +41,7 @@ const projects: Project[] = [
   },
   {
     id: "5",
-    title: "Single plot",
+    title: "Single Plot",
     category: "Residential",
     location: "Suburban Street",
     imageUrl:
@@ -63,7 +63,6 @@ const Projects: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [sortBy, setSortBy] = useState("newest");
 
-  // Listen for category changes from Navbar
   useEffect(() => {
     const handleCategoryChange = (e: Event) => {
       const customEvent = e as CustomEvent;
@@ -73,6 +72,7 @@ const Projects: React.FC = () => {
     };
 
     window.addEventListener("project-category-change", handleCategoryChange);
+
     return () => {
       window.removeEventListener(
         "project-category-change",
@@ -88,22 +88,18 @@ const Projects: React.FC = () => {
     }
   };
 
-  // Derive unique categories from data
   const categories = [
     "All",
     ...Array.from(new Set(projects.map((p) => p.category))),
   ];
 
-  // Filter and Sort Logic
   const filteredAndSortedProjects = useMemo(() => {
     let result = [...projects];
 
-    // Filter
     if (activeCategory !== "All") {
       result = result.filter((p) => p.category === activeCategory);
     }
 
-    // Sort
     result.sort((a, b) => {
       switch (sortBy) {
         case "newest":
@@ -129,42 +125,44 @@ const Projects: React.FC = () => {
   }, [activeCategory, sortBy]);
 
   return (
-    <section id="projects" className="py-20 bg-slate-50 relative scroll-mt-20">
+    <section
+      id="projects"
+      className="py-14 sm:py-16 lg:py-20 bg-slate-50 scroll-mt-20"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header Section */}
-        <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-          <div className="max-w-xl">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+          <div className="max-w-xl text-center md:text-left">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-3">
               Featured Projects
             </h2>
-            <p className="text-slate-600">
+
+            <p className="text-slate-600 text-sm sm:text-base">
               Explore our portfolio of landmarks. Each project represents our
               dedication to structural integrity and aesthetic beauty.
             </p>
           </div>
+
           <button
             onClick={scrollToContact}
-            className="px-6 py-3 rounded-xl border-2 border-amber-500 text-amber-600 font-black text-sm uppercase tracking-widest hover:bg-amber-500 hover:text-white transition-all duration-300 flex items-center gap-2 group whitespace-nowrap transform hover:-translate-y-1 active:scale-95 shadow-md hover:shadow-lg outline-none"
+            className="px-5 py-3 rounded-lg border-2 border-amber-500 text-amber-600 font-bold text-xs sm:text-sm uppercase tracking-widest hover:bg-amber-500 hover:text-white transition-all flex items-center gap-2 justify-center md:justify-start"
           >
-            Start a Project
-            <span className="group-hover:translate-x-1 transition-transform">
-              →
-            </span>
+            Start a Project →
           </button>
         </div>
 
-        {/* Controls Section */}
-        <div className="flex flex-col lg:flex-row justify-between items-center gap-6 mb-10">
-          {/* Category Filter Buttons */}
-          <div className="flex overflow-x-auto pb-2 w-full lg:w-auto gap-2 no-scrollbar">
+        {/* Controls */}
+        <div className="flex flex-col lg:flex-row justify-between items-center gap-5 mb-8">
+          {/* Category Buttons */}
+          <div className="flex overflow-x-auto gap-2 w-full lg:w-auto pb-2">
             {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap active:scale-95 ${
+                className={`px-4 py-2 rounded-full text-xs sm:text-sm whitespace-nowrap transition ${
                   activeCategory === category
-                    ? "bg-amber-500 text-white shadow-md shadow-amber-500/20 transform -translate-y-0.5"
-                    : "bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 hover:border-amber-300"
+                    ? "bg-amber-500 text-white"
+                    : "bg-white border border-slate-200 text-slate-600"
                 }`}
               >
                 {category}
@@ -172,78 +170,59 @@ const Projects: React.FC = () => {
             ))}
           </div>
 
-          {/* Sort Dropdown */}
-          <div className="flex items-center gap-3 w-full lg:w-auto">
-            <span className="text-slate-500 text-sm font-medium flex items-center gap-1">
+          {/* Sort */}
+          <div className="flex items-center gap-2 w-full lg:w-auto">
+            <span className="text-slate-500 text-sm flex items-center gap-1">
               <SlidersHorizontal className="w-4 h-4" />
-              Sort by:
+              Sort
             </span>
+
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="px-4 py-2 rounded-lg border border-slate-200 bg-white text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 cursor-pointer flex-grow lg:flex-grow-0 hover:border-amber-400 transition-colors shadow-sm"
+              className="px-3 py-2 rounded-md border border-slate-200 text-sm w-full lg:w-auto"
             >
-              <option value="newest">Newest First</option>
-              <option value="oldest">Oldest First</option>
-              <option value="az">Name (A-Z)</option>
-              <option value="za">Name (Z-A)</option>
+              <option value="newest">Newest</option>
+              <option value="oldest">Oldest</option>
+              <option value="az">A-Z</option>
+              <option value="za">Z-A</option>
             </select>
           </div>
         </div>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredAndSortedProjects.map((project) => (
             <div
               key={project.id}
-              className="group relative overflow-hidden rounded-xl shadow-lg cursor-pointer bg-white"
+              className="group rounded-xl overflow-hidden shadow-md bg-white"
             >
               <img
                 src={project.imageUrl}
                 alt={project.title}
-                className="w-full h-72 object-cover transform group-hover:scale-110 transition-transform duration-700"
+                className="w-full h-56 sm:h-60 lg:h-64 object-cover group-hover:scale-105 transition"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent opacity-90 transition-opacity duration-300"></div>
 
-              <div className="absolute bottom-0 left-0 p-6 w-full transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-amber-400 text-xs font-bold uppercase tracking-wider">
+              <div className="p-4">
+                <div className="flex justify-between text-xs mb-1">
+                  <span className="text-amber-500 font-bold uppercase">
                     {project.category}
                   </span>
-                  <span className="text-slate-300 text-xs bg-slate-800/50 px-2 py-0.5 rounded backdrop-blur-sm">
+
+                  <span className="text-slate-400">
                     {new Date(project.completionDate).getFullYear()}
                   </span>
                 </div>
 
-                <h3 className="text-xl font-bold text-white mb-1 group-hover:text-amber-400 transition-colors">
+                <h3 className="text-lg font-bold text-slate-900">
                   {project.title}
                 </h3>
-                <p className="text-slate-300 text-sm flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-                  {project.location}
-                </p>
+
+                <p className="text-sm text-slate-500">{project.location}</p>
               </div>
             </div>
           ))}
         </div>
-
-        {/* Empty State */}
-        {filteredAndSortedProjects.length === 0 && (
-          <div className="text-center py-20 bg-white rounded-xl border border-dashed border-slate-300">
-            <p className="text-slate-500 text-lg">
-              No projects found matching your criteria.
-            </p>
-            <button
-              onClick={() => {
-                setActiveCategory("All");
-                setSortBy("newest");
-              }}
-              className="mt-4 text-amber-500 font-semibold hover:underline"
-            >
-              Clear filters
-            </button>
-          </div>
-        )}
       </div>
     </section>
   );
