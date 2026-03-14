@@ -42,3 +42,17 @@ html {
   padding-left: 16px;
   padding-right: 16px;
 }
+/* Mobail View */
+    /* Container flexible ஆக இருக்கும் */
+.container {
+  display: flex;
+  flex-direction: column; /* Mobile-ல் vertical */
+  padding: 10px;
+}
+
+/* Large screens */
+@media(min-width: 768px) {
+  .container {
+    flex-direction: row; /* Desktop-ல் horizontal */
+  }
+}
